@@ -60,6 +60,12 @@ public class EntityManagerIllustrationTest extends TestCase {
 		entityManager.getTransaction().begin();
 		entityManager.persist( new Event( "Our very first event!", new Date() ) );
 		entityManager.persist( new Event( "A follow up event", new Date() ) );
+		Property<Integer> p1 = new IntegerProperty( "ABC", 123 );
+		entityManager.persist( p1 );
+		Property<String> p2 = new StringProperty( "DEF", "HIJ" );
+		entityManager.persist( p2 );
+		entityManager.persist( new PropertyHolder( p1 ) );
+		entityManager.persist( new PropertyHolder( p2 ) );
 		entityManager.getTransaction().commit();
 		entityManager.close();
 
@@ -69,6 +75,13 @@ public class EntityManagerIllustrationTest extends TestCase {
 		List<Event> result = entityManager.createQuery( "from Event", Event.class ).getResultList();
 		for ( Event event : result ) {
 			System.out.println( "Event (" + event.getDate() + ") : " + event.getTitle() );
+		}
+		List<PropertyHolder> propertyResults = entityManager.createQuery(
+				"from PropertyHolder ", PropertyHolder.class ).getResultList();
+		for ( PropertyHolder propertyHolder : propertyResults ) {
+			System.out.println( "Property ("
+					+ propertyHolder.getProperty().getName() + ") : "
+					+ propertyHolder );
 		}
 		entityManager.getTransaction().commit();
 		entityManager.close();

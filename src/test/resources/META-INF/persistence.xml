@@ -15,6 +15,9 @@
         </description>
 
         <class>org.hibernate.tutorial.em.Event</class>
+        <class>org.hibernate.tutorial.em.PropertyHolder</class>
+        <class>org.hibernate.tutorial.em.IntegerProperty</class>
+        <class>org.hibernate.tutorial.em.StringProperty</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver" />
